@@ -10,8 +10,8 @@ import { User, factorial, fibonacci, saveUser } from "./utils";
     }
 
 
-    console.log("Factorial:", factorial(25));
-    console.log("Fibonacci:", fibonacci(10));
+    console.log("Factorial:", factorial(170));
+    console.log("Fibonacci:", fibonacci(1475));
 
     saveUser(user);
 })();
