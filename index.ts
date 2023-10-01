@@ -1,6 +1,5 @@
-import { factorial, fibonacci } from "./utils";
+import { factorial } from "./utils";
 
 (function main() {
-    console.log("Factorial:", factorial(25));
-    console.log("Fibonacci:", fibonacci(50));
+    console.log(factorial(25));
 })();
