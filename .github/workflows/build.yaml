@@ -1,0 +1,35 @@
+name: Deploy on Cloud Run
+
+on:
+  push:
+    branches:
+      - development
+jobs:
+  build_and_upload_container:
+    name: Build and Upload Container
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        project_id: ${{ secrets.GCP_PROJECT }}
+
+
+    - name: 'build and push docker image'
+      env:
+        GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
+        ARTIFACT_REGION: ${{ secrets.ARTIFACT_REGION }}
+        REPO_NAME: ${{ secrets.REPO_NAME }}
+      run: |
+        gcloud auth configure-docker $ARTIFACT_REGION-docker.pkg.dev
+        docker build -t $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:$latest .
+        docker push $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest
+
