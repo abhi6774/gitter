@@ -27,6 +27,8 @@ jobs:
           --image ${{ secrets.ARTIFACT_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.REPO_NAME }}/${{ secrets.CONTAINER_NAME }} \
           --region us-central1 \
           --set-env-vars 'HELLO_MESSAGE=I'"'"'m from GitHub' \
+          --set-env-vars 'API_KEY=${{ secrets.AMADEUS_API_KEY }}' \
+          --set-env-vars 'API_SECRET=${{ secrets.AMADEUS_API_SECRET }}' \
           --platform managed \
           --allow-unauthenticated \
           --quiet \
