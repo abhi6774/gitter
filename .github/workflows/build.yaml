@@ -22,14 +22,14 @@ jobs:
       with:
         project_id: ${{ secrets.GCP_PROJECT }}
 
-    - name: 'Use gcloud CLI'
-      run: 'gcloud info'
 
     - name: 'build and push docker image'
       env:
         GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
+        ARTIFACT_REGION: ${{ secrets.ARTIFACT_REGION }}
+        REPO_NAME: ${{ secrets.REPO_NAME }}
       run: |
-        gcloud auth configure-docker asia-south1-docker.pkg.dev
-        docker build -t asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/ayush/gitter:${{ github.sha }} .
-        docker push asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/ayush/gitter:${{ github.sha }}
+        gcloud auth configure-docker $ARTIFACT_REGION-docker.pkg.dev
+        docker build -t $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:$latest .
+        docker push $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest
 
