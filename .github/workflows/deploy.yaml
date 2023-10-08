@@ -33,7 +33,6 @@ jobs:
               HELLO_MESSAGE=${{ vars.HELLO_MESSAGE_VAR }} \
             ] \
           --quiet \
-          --format 'value(status.url)' \
           --verbosity debug
 
 
