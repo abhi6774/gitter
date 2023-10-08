@@ -29,9 +29,7 @@ jobs:
           --region us-central1 \
           --platform managed \
           --allow-unauthenticated \
-          --set-env-vars [ \
-              "HELLO_MESSAGE=${{ vars.HELLO_MESSAGE_VAR }}" \
-            ] \
+          --set-env-vars 'HELLO_MESSAGE=${{ vars.HELLO_MESSAGE_VAR }}' \
           --quiet \
           --verbosity debug
 
