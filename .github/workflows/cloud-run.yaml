@@ -30,6 +30,6 @@ jobs:
             GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
           run: |
             gcloud auth configure-docker asia-south1-docker.pkg.dev
-            docker build -t asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/gitter:${{ github.sha }} .
-            docker push asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/gitter:${{ github.sha }}
+            docker build -t asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/gitter:${{ github.sha }} .
+            docker push asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/gitter:${{ github.sha }}
 
