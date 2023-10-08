@@ -1,9 +1,9 @@
-name: Deploy on Cloud Run
+name: Upload to Artifact Registry
 
 on:
-  push:
-    branches:
-      - development
+  workflow_dispatch:
+
+
 jobs:
   build_and_upload_container:
     name: Build and Upload Container
