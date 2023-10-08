@@ -10,6 +10,5 @@ ENV HELLO_MESSAGE=Namaste\ India
 
 EXPOSE 3000
 
-RUN npm run bdev
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "bdev"]
