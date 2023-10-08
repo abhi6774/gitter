@@ -29,6 +29,7 @@ jobs:
           --set-env-vars 'HELLO_MESSAGE=I'"'"'m from GitHub' \
           --set-env-vars 'API_KEY=${{ secrets.AMADEUS_API_KEY }}' \
           --set-env-vars 'API_SECRET=${{ secrets.AMADEUS_API_SECRET }}' \
+          --set-env-vars 'API_NINJAS_KEY=${{ secrets.API_NINJAS_KEY }}' \
           --platform managed \
           --allow-unauthenticated \
           --quiet \
