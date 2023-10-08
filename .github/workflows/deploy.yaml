@@ -27,6 +27,7 @@ jobs:
         gcloud run deploy gitter \
           --image ${{ secrets.ARTIFACT_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.REPO_NAME }}/${{ secrets.CONTAINER_NAME }} \
           --region us-central1 \
+          --set-env-vars 'HELLO_MESSAGE=I\'m from GitHub' \
           --platform managed \
           --allow-unauthenticated \
           --quiet \
