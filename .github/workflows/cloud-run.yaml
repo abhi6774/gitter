@@ -11,13 +11,25 @@ jobs:
         steps:
         - name: Checkout code
           uses: actions/checkout@v4
+
         - id: 'auth'
-          name: 'Authenticate with Google Cloud'
-          uses: google-github-actions/auth@v1
+          uses: 'google-github-actions/auth@v1'
           with:
             credentials_json: '${{ secrets.GCP_SA_KEY }}'
-            token_format: 'access_token'
 
-        - run: |-
-            echo '${{ steps.auth.outputs.access_token }}'
+        - name: 'Set up Cloud SDK'
+          uses: 'google-github-actions/setup-gcloud@v1'
+          with:
+            project_id: ${{ secrets.GCP_PROJECT }}
+
+        - name: 'Use gcloud CLI'
+          run: 'gcloud info'
+
+        - name: 'build and push docker image'
+          env:
+            GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
+          run: |
+            gcloud auth configure-docker asia-south1-docker.pkg.dev
+            docker build -t asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/gitter:${{ github.sha }} .
+            docker push asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/gitter:${{ github.sha }}
 
