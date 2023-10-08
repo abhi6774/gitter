@@ -1,4 +1,4 @@
-# Git Docker And Actions
+# GitHub Actions, Docker And Cloud Run
 
 This is the sample project to setup Github Actions and Docker and google Cloud Run service For Continous Integration and Deployment.
 
