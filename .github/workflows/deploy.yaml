@@ -30,7 +30,7 @@ jobs:
           --platform managed \
           --allow-unauthenticated \
           --set-env-vars [ \
-              HELLO_MESSAGE=${{ vars.HELLO_MESSAGE_VAR }} \
+              "HELLO_MESSAGE=${{ vars.HELLO_MESSAGE_VAR }}" \
             ] \
           --quiet \
           --verbosity debug
