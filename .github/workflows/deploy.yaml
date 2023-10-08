@@ -32,4 +32,7 @@ jobs:
           "HELLO_MESSAGE=${{ secrets.HELLO_MESSAGE }}"
         flags: '--allow-unauthenticated'
 
+    - name: 'Use output'
+      run: 'Deployed URL "${{ steps.deploy.outputs.url }}"'
+
 
