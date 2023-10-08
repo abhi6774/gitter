@@ -30,6 +30,6 @@ jobs:
         REPO_NAME: ${{ secrets.REPO_NAME }}
       run: |
         gcloud auth configure-docker $ARTIFACT_REGION-docker.pkg.dev
-        docker build -t $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:$latest .
+        docker build -t $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest .
         docker push $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest
 
