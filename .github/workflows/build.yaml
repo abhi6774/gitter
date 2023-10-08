@@ -1,9 +1,9 @@
-name: Deploy on Cloud Run
+name: Upload to Artifact Registry
 
 on:
-  push:
-    branches:
-      - development
+  workflow_dispatch:
+
+
 jobs:
   build_and_upload_container:
     name: Build and Upload Container
@@ -30,6 +30,6 @@ jobs:
         REPO_NAME: ${{ secrets.REPO_NAME }}
       run: |
         gcloud auth configure-docker $ARTIFACT_REGION-docker.pkg.dev
-        docker build -t $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:$latest .
+        docker build -t $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest .
         docker push $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest
 
