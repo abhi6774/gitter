@@ -25,9 +25,9 @@ jobs:
         REPO_NAME: ${{ secrets.REPO_NAME }}
       with:
         service: 'gitter'
-        image: $ARTIFACT_REGION-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest
-        project_id: $GOOGLE_PROJECT
-        region: $ARTIFACT_REGION
+        image: ${{ secrets.ARTIFACT_REGION }}-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest
+        project_id: ${{ secrets.GCP_PROJECT }}
+        region: ${{ secrets.ARTIFACT_REGION }}
         env_vars:
           "HELLO_MESSAGE=${{ secrets.HELLO_MESSAGE }}"
         flags: '--allow-unauthenticated'
