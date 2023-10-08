@@ -17,22 +17,21 @@ jobs:
       with:
         credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
-    - id: 'deploy'
-      uses: 'google-github-actions/deploy-cloudrun@v1'
-      env:
-        GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
-        ARTIFACT_REGION: ${{ secrets.ARTIFACT_REGION }}
-        REPO_NAME: ${{ secrets.REPO_NAME }}
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
       with:
-        service: 'gitter'
-        image: ${{ secrets.ARTIFACT_REGION }}-docker.pkg.dev/$GOOGLE_PROJECT/$REPO_NAME/gitter:latest
         project_id: ${{ secrets.GCP_PROJECT }}
-        region: ${{ secrets.ARTIFACT_REGION }}
-        env_vars:
-          "HELLO_MESSAGE=${{ secrets.HELLO_MESSAGE }}"
-        flags: '--allow-unauthenticated'
 
-    - name: 'Use output'
-      run: 'Deployed URL "${{ steps.deploy.outputs.url }}"'
+    - name: 'Deploy Image'
+      run: |
+        gcloud run deploy gitter \
+          --image ${{ secrets.ARTIFACT_REGION }}-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/${{ secrets.REPO_NAME }}/${{ secrets.CONTAINER_NAME }} \
+          --region us-central1 \
+          --platform managed \
+          --allow-unauthenticated \
+          --set-env-vars HELLO_MESSAGE="${{ vars.HELLO_MESSAGE_VAR }}" \
+          --quiet \
+          --format 'value(status.url)' \
+          --verbosity debug
 
 
