@@ -1,35 +1,35 @@
 name: Deploy on Cloud Run
 
 on:
-    push:
-        branches:
-            - development
+  push:
+    branches:
+      - development
 jobs:
-    build_and_upload_container:
-        name: Build and Upload Container
-        runs-on: ubuntu-latest
-        steps:
-        - name: Checkout code
-          uses: actions/checkout@v4
+  build_and_upload_container:
+    name: Build and Upload Container
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-        - id: 'auth'
-          uses: 'google-github-actions/auth@v1'
-          with:
-            credentials_json: '${{ secrets.GCP_SA_KEY }}'
+    - id: 'auth'
+      uses: 'google-github-actions/auth@v1'
+      with:
+        credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
-        - name: 'Set up Cloud SDK'
-          uses: 'google-github-actions/setup-gcloud@v1'
-          with:
-            project_id: ${{ secrets.GCP_PROJECT }}
+    - name: 'Set up Cloud SDK'
+      uses: 'google-github-actions/setup-gcloud@v1'
+      with:
+        project_id: ${{ secrets.GCP_PROJECT }}
 
-        - name: 'Use gcloud CLI'
-          run: 'gcloud info'
+    - name: 'Use gcloud CLI'
+      run: 'gcloud info'
 
-        - name: 'build and push docker image'
-          env:
-            GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
-          run: |
-            gcloud auth configure-docker asia-south1-docker.pkg.dev
-            docker build -t asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/gitter:${{ github.sha }} .
-            docker push asia-south1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/gitter:${{ github.sha }}
+    - name: 'build and push docker image'
+      env:
+        GOOGLE_PROJECT: ${{ secrets.GCP_PROJECT }}
+      run: |
+        gcloud auth configure-docker asia-south1-docker.pkg.dev
+        docker build -t asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/ayush/gitter:${{ github.sha }} .
+        docker push asia-south1-docker.pkg.dev/$GOOGLE_PROJECT/ayush/gitter:${{ github.sha }}
 
