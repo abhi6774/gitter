@@ -62,11 +62,9 @@ app.get("/", async (req, res) => {
                     .inner-container {
                         margin: 24px;
                         font-family: sans-serif;
-                        width: 100%;
+                        width: 80%;
                         position: relative;
-                        padding-bottom: 40px;
                         background: #f5f5f5;
-                        text-aling: center;
                         padding: 24px;
                     }
                     span {
